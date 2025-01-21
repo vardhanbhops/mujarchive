@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MUJ Archive - Previous Year Papers</title>
     <style>
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 35%;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.732);
+            
+        }
+
+    
+        h1 {
+            color: #FB8C00;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin: 0;
+            position: relative;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -243,63 +267,162 @@
                 padding: 1rem;
             }
         }
-    </style>
+
+
+.branch-selector {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.branch-btn {
+    background: linear-gradient(135deg, #FB8C00 0%, #FFA726 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    margin: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.branch-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.branch-btn.active {
+    background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
+    transform: scale(1.1);
+}
+
+.branch-content {
+    display: none;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.branch-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+</style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <header>
-            <h1>MUJ ARCHIVE</h1>
-            <p>Transition Through Time - Academic Resources Hub</p>
+            <div class="header-content">
+                <img src="Manipal_University_Jaipur_logo.png" alt="MUJ Logo" class="logo">
+                <div>
+                    <h1>MUJ ARCHIVE</h1>
+                    <p>Transition Through Time - Academic Resources Hub</p>
+                </div>
+            </div>
         </header>
 
-        <div class="branches">
-            <!-- 1st Year Section -->
-            <div class="branch-card">
-                <h2>1st Year <span>Common Subjects</span></h2>
-                <div class="cycle-container">
-                    <!-- Chemistry Cycle -->
-                    <div class="cycle-column">
-                        <div class="cycle-header" onclick="toggleCycle('chemistry')">
-                            <span> Chemistry Cycle</span>
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div id="chemistry" class="cycle-content">
-                            <a href="papers/CHEM/Year1/Mathematics-I.pdf" class="subject-link" target="_blank">Calculus & Matrices</a>
-                            <a href="papers/CHEM/Year1/Physics.pdf" class="subject-link" target="_blank">Basic Electrical Engineering</a>
-                            <a href="papers/CHEM/Year1/Programming-Basics.pdf" class="subject-link" target="_blank">Basic Electronics</a>
-                            <a href="papers/CHEM/Year1/Electrical-Basics.pdf" class="subject-link" target="_blank">Biology for Engineers</a>
-                            <a href="papers/CHEM/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Chemistry</a>
-                            <a href="papers/CHEM/Year1/English.pdf" class="subject-link" target="_blank">Constitution of India</a>
-                        </div>
-                    </div>
+<div class="branch-selector">
+    <button class="branch-btn active" onclick="showBranch('first-year')">First Year</button>
+    <button class="branch-btn" onclick="showBranch('cse-core')">CSE Core</button>
+    <button class="branch-btn" onclick="showBranch('ai-ml')">AI & ML</button>
+    <button class="branch-btn" onclick="showBranch('cce')">CCE</button>
+    <button class="branch-btn" onclick="showBranch('it')">IT</button>
+    <button class="branch-btn" onclick="showBranch('data-science')">Data Science</button>
+</div>
 
-                    <!-- Physics Cycle -->
-                    <div class="cycle-column">
-                        <div class="cycle-header" onclick="toggleCycle('physics')">
-                            <span> Physics Cycle</span>
-                            <span class="arrow">▼</span>
-                        </div>
-                        <div id="physics" class="cycle-content">
-                            <a href="papers/PHY/Year1/Physics-I.pdf" class="subject-link" target="_blank">Engineering Physics</a>
-                            <a href="papers/PHY/Year1/Mathematics-II.pdf" class="subject-link" target="_blank">Mathematics II</a>
-                            <a href="papers/PHY/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Mechanics</a>
-                            <a href="papers/PHY/Year1/Chemistry.pdf" class="subject-link" target="_blank">Chemistry for Engineers</a>
-                            <a href="papers/PHY/Year1/Electronics.pdf" class="subject-link" target="_blank">Electronics Basics</a>
-                            <a href="papers/PHY/Year1/Programming.pdf" class="subject-link" target="_blank">Programming Fundamentals</a>
-                        </div>
-                    </div>
+<!-- First Year Content -->
+<div id="first-year" class="branch-content active">
+    <div class="branch-card">
+        <h2>Common First Year Subjects</h2>
+        <div class="cycle-container">
+            <!-- Chemistry Cycle -->
+            <div class="cycle-column">
+                <div class="cycle-header" onclick="toggleCycle('chemistry')">
+                    <span> Chemistry Cycle</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div id="chemistry" class="cycle-content">
+                    <!-- Subjects as before -->
+                </div>
+            </div>
+            <!-- Physics Cycle -->
+            <div class="cycle-column">
+                <div class="cycle-header" onclick="toggleCycle('physics')">
+                    <span> Physics Cycle</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div id="physics" class="cycle-content">
+                    <!-- Subjects as before -->
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        function toggleCycle(cycleId) {
-            const cycle = document.getElementById(cycleId);
-            const header = cycle.previousElementSibling;
-            cycle.classList.toggle('active');
-            header.classList.toggle('active');
+<!-- CSE Core Content -->
+<div id="cse-core" class="branch-content">
+    <div class="branch-card">
+        <h2>Computer Science & Engineering (Core)</h2>
+        <div class="year-header">Second Year</div>
+        <div class="cycle-container">
+            <div class="cycle-column">
+                <div class="cycle-header" onclick="toggleCycle('cse-sem3')">
+                    <span>Semester 3</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div id="cse-sem3" class="cycle-content">
+                    <a href="#" class="subject-link">Data Structures & Algorithms</a>
+                    <a href="#" class="subject-link">Computer Organization</a>
+                    <a href="#" class="subject-link">Discrete Mathematics</a>
+                </div>
+            </div>
+            <div class="cycle-column">
+                <div class="cycle-header" onclick="toggleCycle('cse-sem4')">
+                    <span>Semester 4</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div id="cse-sem4" class="cycle-content">
+                    <a href="" class="subject-link">Operating Systems</a>
+                    <a href="" class="subject-link">Database Management</a>
+                    <a href="" class="subject-link">Theory of Computation</a>
+                </div>
+            </div>
+        </div>
+        <!-- Add similar blocks for 3rd year -->
+    </div>
+</div>
+
+<!-- Add similar content blocks for other branches -->
+
+</div>
+
+<script>
+function showBranch(branchId) {
+    // Handle button states
+    document.querySelectorAll('.branch-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.getAttribute('onclick').includes(branchId)) {
+            btn.classList.add('active');
         }
-    </script>
+    });
+
+    // Handle content visibility
+    document.querySelectorAll('.branch-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.getElementById(branchId).classList.add('active');
+}
+
+function toggleCycle(cycleId) {
+    const cycle = document.getElementById(cycleId);
+    const header = cycle.previousElementSibling;
+    cycle.classList.toggle('active');
+    header.classList.toggle('active');
+}
+</script>
 </body>
 </html>
