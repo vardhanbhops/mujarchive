@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Archive - Previous Year Papers</title>
@@ -14,7 +12,7 @@
 
         body::before {
             content: "";
-            background-image: url("background.jpg");
+            background-image: url("images/background.jpg");
             background-size: cover;
             background-position: center;
             opacity: 0.5;
@@ -169,6 +167,57 @@
             color: #FFA726;
         }
 
+        
+.cycle-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.cycle-column {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.cycle-header {
+    cursor: pointer;
+    padding: 0.5rem;
+    background: #FB8C00;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cycle-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.cycle-content.active {
+    max-height: 500px;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.cycle-header.active .arrow {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+    .cycle-container {
+        flex-direction: column;
+    }
+}
+
         @keyframes cardEntrance {
             from {
                 opacity: 0;
@@ -199,36 +248,54 @@
             <p>Transition Through Time - Academic Resources Hub</p>
         </header>
 
-        <div class="branches">
-            <!-- CSE -->
-            <div class="branch-card">
-                <h2>1st <span>Year</span></h2>
-                <ul class="year-list">
-                    <li class="year-item">
-                        
+<!-- Update the 1st Year section -->
+<div class="branch-card">
+    <h2>1st <span>Year</span></h2>
+    <div class="cycle-container">
+        <!-- Chemistry Cycle -->
+        <div class="cycle-column">
+            <div class="cycle-header" onclick="toggleCycle('chemistry')">
+                <span>Chemistry Cycle</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div id="chemistry" class="cycle-content">
+                <a href="papers/CSE/Year1/Mathematics-I.pdf" class="subject-link" target="_blank">Calculus & Matrices</a>
+                <a href="papers/CSE/Year1/Physics.pdf" class="subject-link" target="_blank">Basic Electrical Engineering</a>
+                <a href="papers/CSE/Year1/Programming-Basics.pdf" class="subject-link" target="_blank">Basic Electronics</a>
+                <a href="papers/CSE/Year1/Electrical-Basics.pdf" class="subject-link" target="_blank">Biology for Engineers</a>
+                <a href="papers/CSE/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Chemistry</a>
+                <a href="papers/CSE/Year1/English.pdf" class="subject-link" target="_blank">Constitution of India</a>
+            </div>
+        </div>
 
-            <!-- CCE -->
-
-            
-        <!-- Computer Science (CSE) -->
-        <div class="branch-card">
-            <h2>CHEMISTRY CYCLE</h2>
-            <ul class="year-list">
-                <!-- 1st Year -->
-                <li class="year-item">
-                    <div class="year-title">1st Year</div>
-                    <a href="papers/CSE/Year1/Mathematics-I.pdf" class="subject-link" target="_blank">Calculus & Matrices</a>
-                    <a href="papers/CSE/Year1/Physics.pdf" class="subject-link" target="_blank">Basic Electrical Engineering</a>
-                    <a href="papers/CSE/Year1/Programming-Basics.pdf" class="subject-link" target="_blank">Basic Electronics</a>
-                    <a href="papers/CSE/Year1/Electrical-Basics.pdf" class="subject-link" target="_blank">Biology for Engineers</a>
-                    <a href="papers/CSE/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Chemistry</a>
-                    <a href="papers/CSE/Year1/English.pdf" class="subject-link" target="_blank">Constitution of India</a>
-                </li>
-                
-                <!-- 2nd Year -->
-               
-        
-
+        <!-- Physics Cycle -->
+        <div class="cycle-column">
+            <div class="cycle-header" onclick="toggleCycle('physics')">
+                <span>Physics Cycle</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div id="physics" class="cycle-content">
+                <a href="papers/PHY/Year1/Physics-I.pdf" class="subject-link" target="_blank">Engineering Physics</a>
+                <a href="papers/PHY/Year1/Mathematics-II.pdf" class="subject-link" target="_blank">Mathematics II</a>
+                <a href="papers/PHY/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Mechanics</a>
+                <a href="papers/PHY/Year1/Chemistry.pdf" class="subject-link" target="_blank">Chemistry for Engineers</a>
+                <a href="papers/PHY/Year1/Electronics.pdf" class="subject-link" target="_blank">Electronics Basics</a>
+                <a href="papers/PHY/Year1/Programming.pdf" class="subject-link" target="_blank">Programming Fundamentals</a>
+            </div>
+        </div>
     </div>
+</div>
+
+<script>
+function toggleCycle(cycleId) {
+    const cycle = document.getElementById(cycleId);
+    const header = cycle.previousElementSibling;
+    cycle.classList.toggle('active');
+    header.classList.toggle('active');
+}
+</script>
 </body>
-</html>
+</htmlhtml>
+
+
+
