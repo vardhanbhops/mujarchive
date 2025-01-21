@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Archive - Previous Year Papers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body::before {
+            content: "";
+            background-image: url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FB8C00 100%);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        header:hover {
+            transform: translateY(-3px);
+        }
+
+        h1 {
+            color: #FB8C00;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .branches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .branch-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .branch-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #FB8C00;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .branch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .branch-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        h2 {
+            color: #FB8C00;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        h2 span {
+            color: #666;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .year-list {
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .branch-card:hover .year-list {
+            max-height: 500px;
+        }
+
+        .year-item {
+            margin-bottom: 1rem;
+        }
+
+        .year-title {
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .year-title::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #FB8C00;
+        }
+
+        .subject-link {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            margin: 0.3rem 0;
+        }
+
+        .subject-link:hover {
+            background: #FFF3E0;
+            transform: translateX(5px);
+        }
+
+        .credits {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .credits a {
+            color: #FB8C00;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .credits a:hover {
+            color: #FFA726;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .branch-card {
+            animation: cardEntrance 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .branch-card:nth-child(1) { animation-delay: 0.1s; }
+        .branch-card:nth-child(2) { animation-delay: 0.2s; }
+        .branch-card:nth-child(3) { animation-delay: 0.3s; }
+        .branch-card:nth-child(4) { animation-delay: 0.4s; }
+        .branch-card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MUJ ARCHIVE</h1>
+            <p>Transition Through Time - Academic Resources Hub</p>
+        </header>
+
+        <div class="branches">
+            <!-- CSE -->
+            <div class="branch-card">
+                <h2>Computer Science <span>(CSE)</span></h2>
+                <ul class="year-list">
+                    <li class="year-item">
+                        <div class="year-title">First Year</div>
+                        <a href="papers/cse/year1/subject1.pdf" class="subject-link" target="_blank">Computational Mathematics</a>
+                        <a href="cse_year1_subject2.pdf" class="subject-link" target="_blank">1st year_physics</a>
+                        <a href="cse_year1_subject2.pdf" class="subject-link" target="_blank">2nd year_chemistry</a>
+                        <a href="cse_year1_subject2.pdf" class="subject-link" target="_blank">Programming Fundamentals</a>
+                        <a href="cse_year1_subject2.pdf" class="subject-link" target="_blank">Programming Fundamentals</a>
+                        <!-- Add 4 more subjects -->
+                    </li>
+                    <!-- Repeat for Year 2 and Year 3 -->
+                </ul>
+            </div>
+
+            <!-- CCE -->
+            <div class="branch-card">
+                <h2>Computer & Communication <span>(CCE)</span></h2>
+                <!-- Similar structure -->
+            </div>
+
+            <!-- DA -->
+            <div class="branch-card">
+                <h2>Data Science <span>(DA)</span></h2>
+                <!-- Similar structure -->
+            </div>
+
+            <!-- AIML -->
+            <div class="branch-card">
+                <h2>AI & ML <span>(AIML)</span></h2>
+                <!-- Similar structure -->
+            </div>
+
+            <!-- IT -->
+            <div class="branch-card">
+                <h2>Information Technology <span>(IT)</span></h2>
+                <!-- Similar structure -->
+            </div>
+        </div>
+
+        <!-- Computer Science (CSE) -->
+        <div class="branch-card">
+            <h2>Computer Science <span>(CSE)</span></h2>
+            <ul class="year-list">
+                <!-- 1st Year -->
+                <li class="year-item">
+                    <div class="year-title">1st Year</div>
+                    <a href="papers/CSE/Year1/Mathematics-I.pdf" class="subject-link" target="_blank">Mathematics-I</a>
+                    <a href="papers/CSE/Year1/Physics.pdf" class="subject-link" target="_blank">Physics</a>
+                    <a href="papers/CSE/Year1/Programming-Basics.pdf" class="subject-link" target="_blank">Programming Basics</a>
+                    <a href="papers/CSE/Year1/Electrical-Basics.pdf" class="subject-link" target="_blank">Electrical Basics</a>
+                    <a href="papers/CSE/Year1/Mechanics.pdf" class="subject-link" target="_blank">Mechanics</a>
+                    <a href="papers/CSE/Year1/English.pdf" class="subject-link" target="_blank">English</a>
+                </li>
+                
+                <!-- 2nd Year -->
+                <li class="year-item">
+                    <div class="year-title">2nd Year</div>
+                    <a href="papers/CSE/Year2/Data-Structures.pdf" class="subject-link" target="_blank">Data Structures</a>
+                    <a href="papers/CSE/Year2/Algorithms.pdf" class="subject-link" target="_blank">Algorithms</a>
+                    <!-- Add 4 more subjects -->
+                </li>
+                
+                <!-- 3rd Year -->
+                <li class="year-item">
+                    <div class="year-title">3rd Year</div>
+                    <a href="papers/CSE/Year3/AI-Fundamentals.pdf" class="subject-link" target="_blank">AI Fundamentals</a>
+                    <a href="papers/CSE/Year3/Cloud-Computing.pdf" class="subject-link" target="_blank">Cloud Computing</a>
+                    <!-- Add 4 more subjects -->
+                </li>
+            </ul>
+        </div>
+        
+}
+    </div>
+</body>
+</html>
