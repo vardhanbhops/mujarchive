@@ -1,7 +1,9 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Archive - Previous Year Papers</title>
+    <title>MUJ Archive - Previous Year Papers</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +14,7 @@
 
         body::before {
             content: "";
-            background-image: url("images/background.jpg");
+            background-image: url("background.jpg");
             background-size: cover;
             background-position: center;
             opacity: 0.5;
@@ -39,11 +41,11 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transform: translateY(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         header:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.01);
         }
 
         h1 {
@@ -64,10 +66,13 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 1.5rem;
             border-radius: 15px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            animation: cardEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         .branch-card::after {
@@ -79,12 +84,12 @@
             height: 4px;
             background: #FB8C00;
             transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .branch-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
         }
 
         .branch-card:hover::after {
@@ -103,135 +108,109 @@
             margin-left: 0.5rem;
         }
 
-        .year-list {
-            list-style: none;
+        /* Cycle Columns */
+        .cycle-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            perspective: 1000px;
+        }
+
+        .cycle-column {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            transform: translateZ(0);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .cycle-column:hover {
+            transform: translateY(-4px) rotateX(2deg) rotateY(1deg);
+        }
+
+        .cycle-header {
+            cursor: pointer;
+            padding: 1rem;
+            background: linear-gradient(135deg, #FB8C00 0%, #FFA726 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cycle-header:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .cycle-header.active {
+            background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
+        }
+
+        .cycle-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.4s ease-out;
+            opacity: 0;
         }
 
-        .branch-card:hover .year-list {
-            max-height: 500px;
+        .cycle-content.active {
+            max-height: 1000px;
+            opacity: 1;
         }
 
-        .year-item {
-            margin-bottom: 1rem;
+        .cycle-content .subject-link {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease-out;
         }
 
-        .year-title {
-            color: #666;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-left: 1rem;
+        .cycle-content.active .subject-link {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0.2s;
         }
 
-        .year-title::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #FB8C00;
+        .arrow {
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .cycle-header.active .arrow {
+            transform: rotate(540deg) scale(1.2);
         }
 
         .subject-link {
             display: block;
             color: #333;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            margin: 0.3rem 0;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            background: rgba(255, 243, 224, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .subject-link:hover {
             background: #FFF3E0;
-            transform: translateX(5px);
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
         }
-
-        .credits {
-            text-align: center;
-            margin-top: 2rem;
-            color: #666;
-            font-size: 0.9rem;
-            padding: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .credits a {
-            color: #FB8C00;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .credits a:hover {
-            color: #FFA726;
-        }
-
-        
-.cycle-container {
-    display: flex;
-    gap: 2rem;
-    margin-top: 1rem;
-}
-
-.cycle-column {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 10px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.cycle-header {
-    cursor: pointer;
-    padding: 0.5rem;
-    background: #FB8C00;
-    color: white;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cycle-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-
-.cycle-content.active {
-    max-height: 500px;
-}
-
-.arrow {
-    transition: transform 0.3s ease;
-}
-
-.cycle-header.active .arrow {
-    transform: rotate(180deg);
-}
-
-@media (max-width: 768px) {
-    .cycle-container {
-        flex-direction: column;
-    }
-}
 
         @keyframes cardEntrance {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
-        }
-
-        .branch-card {
-            animation: cardEntrance 0.5s ease forwards;
-            opacity: 0;
         }
 
         .branch-card:nth-child(1) { animation-delay: 0.1s; }
@@ -239,6 +218,31 @@
         .branch-card:nth-child(3) { animation-delay: 0.3s; }
         .branch-card:nth-child(4) { animation-delay: 0.4s; }
         .branch-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @media (max-width: 768px) {
+            .cycle-container {
+                flex-direction: column;
+            }
+            
+            .cycle-column {
+                animation: mobileSlide 0.4s ease-out;
+            }
+            
+            @keyframes mobileSlide {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            .branch-card {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -248,54 +252,54 @@
             <p>Transition Through Time - Academic Resources Hub</p>
         </header>
 
-<!-- Update the 1st Year section -->
-<div class="branch-card">
-    <h2>1st <span>Year</span></h2>
-    <div class="cycle-container">
-        <!-- Chemistry Cycle -->
-        <div class="cycle-column">
-            <div class="cycle-header" onclick="toggleCycle('chemistry')">
-                <span>Chemistry Cycle</span>
-                <span class="arrow">▼</span>
-            </div>
-            <div id="chemistry" class="cycle-content">
-                <a href="papers/CSE/Year1/Mathematics-I.pdf" class="subject-link" target="_blank">Calculus & Matrices</a>
-                <a href="papers/CSE/Year1/Physics.pdf" class="subject-link" target="_blank">Basic Electrical Engineering</a>
-                <a href="papers/CSE/Year1/Programming-Basics.pdf" class="subject-link" target="_blank">Basic Electronics</a>
-                <a href="papers/CSE/Year1/Electrical-Basics.pdf" class="subject-link" target="_blank">Biology for Engineers</a>
-                <a href="papers/CSE/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Chemistry</a>
-                <a href="papers/CSE/Year1/English.pdf" class="subject-link" target="_blank">Constitution of India</a>
-            </div>
-        </div>
+        <div class="branches">
+            <!-- 1st Year Section -->
+            <div class="branch-card">
+                <h2>1st Year <span>Common Subjects</span></h2>
+                <div class="cycle-container">
+                    <!-- Chemistry Cycle -->
+                    <div class="cycle-column">
+                        <div class="cycle-header" onclick="toggleCycle('chemistry')">
+                            <span> Chemistry Cycle</span>
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div id="chemistry" class="cycle-content">
+                            <a href="papers/CHEM/Year1/Mathematics-I.pdf" class="subject-link" target="_blank">Calculus & Matrices</a>
+                            <a href="papers/CHEM/Year1/Physics.pdf" class="subject-link" target="_blank">Basic Electrical Engineering</a>
+                            <a href="papers/CHEM/Year1/Programming-Basics.pdf" class="subject-link" target="_blank">Basic Electronics</a>
+                            <a href="papers/CHEM/Year1/Electrical-Basics.pdf" class="subject-link" target="_blank">Biology for Engineers</a>
+                            <a href="papers/CHEM/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Chemistry</a>
+                            <a href="papers/CHEM/Year1/English.pdf" class="subject-link" target="_blank">Constitution of India</a>
+                        </div>
+                    </div>
 
-        <!-- Physics Cycle -->
-        <div class="cycle-column">
-            <div class="cycle-header" onclick="toggleCycle('physics')">
-                <span>Physics Cycle</span>
-                <span class="arrow">▼</span>
-            </div>
-            <div id="physics" class="cycle-content">
-                <a href="papers/PHY/Year1/Physics-I.pdf" class="subject-link" target="_blank">Engineering Physics</a>
-                <a href="papers/PHY/Year1/Mathematics-II.pdf" class="subject-link" target="_blank">Mathematics II</a>
-                <a href="papers/PHY/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Mechanics</a>
-                <a href="papers/PHY/Year1/Chemistry.pdf" class="subject-link" target="_blank">Chemistry for Engineers</a>
-                <a href="papers/PHY/Year1/Electronics.pdf" class="subject-link" target="_blank">Electronics Basics</a>
-                <a href="papers/PHY/Year1/Programming.pdf" class="subject-link" target="_blank">Programming Fundamentals</a>
+                    <!-- Physics Cycle -->
+                    <div class="cycle-column">
+                        <div class="cycle-header" onclick="toggleCycle('physics')">
+                            <span> Physics Cycle</span>
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div id="physics" class="cycle-content">
+                            <a href="papers/PHY/Year1/Physics-I.pdf" class="subject-link" target="_blank">Engineering Physics</a>
+                            <a href="papers/PHY/Year1/Mathematics-II.pdf" class="subject-link" target="_blank">Mathematics II</a>
+                            <a href="papers/PHY/Year1/Mechanics.pdf" class="subject-link" target="_blank">Engineering Mechanics</a>
+                            <a href="papers/PHY/Year1/Chemistry.pdf" class="subject-link" target="_blank">Chemistry for Engineers</a>
+                            <a href="papers/PHY/Year1/Electronics.pdf" class="subject-link" target="_blank">Electronics Basics</a>
+                            <a href="papers/PHY/Year1/Programming.pdf" class="subject-link" target="_blank">Programming Fundamentals</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-function toggleCycle(cycleId) {
-    const cycle = document.getElementById(cycleId);
-    const header = cycle.previousElementSibling;
-    cycle.classList.toggle('active');
-    header.classList.toggle('active');
-}
-</script>
+    <script>
+        function toggleCycle(cycleId) {
+            const cycle = document.getElementById(cycleId);
+            const header = cycle.previousElementSibling;
+            cycle.classList.toggle('active');
+            header.classList.toggle('active');
+        }
+    </script>
 </body>
-</htmlhtml>
-
-
-
+</html>
