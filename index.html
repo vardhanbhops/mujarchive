@@ -309,7 +309,81 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+.cycle-selector {
+    margin: 20px 0;
+    padding: 12px 20px;
+    border: 2px solid #FB8C00;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 220px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
+.cycle-selector:hover {
+    border-color: #FFA726;
+    box-shadow: 0 6px 12px rgba(251, 140, 0, 0.2);
+}
+
+.cycle-selector:focus {
+    outline: none;
+    border-color: #FFA726;
+    box-shadow: 0 0 12px rgba(251, 140, 0, 0.4);
+}
+
+.cycle-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 15px;
+}
+
+.cycle-content.active {
+    max-height: 1000px; /* Adjust based on content height */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.subject-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.subject-item {
+    padding: 12px 16px;
+    margin: 8px 0;
+    background-color: rgba(255, 243, 224, 0.3);
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.cycle-content.active .subject-item {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.subject-item:hover {
+    background-color: #FFF3E0;
+    transform: translateX(10px) scale(1.02);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Staggered animation for subject items */
+.cycle-content.active .subject-item:nth-child(1) { transition-delay: 0.1s; }
+.cycle-content.active .subject-item:nth-child(2) { transition-delay: 0.2s; }
+.cycle-content.active .subject-item:nth-child(3) { transition-delay: 0.3s; }
+.cycle-content.active .subject-item:nth-child(4) { transition-delay: 0.4s; }
+.cycle-content.active .subject-item:nth-child(5) { transition-delay: 0.5s; }
+.cycle-content.active .subject-item:nth-child(6) { transition-delay: 0.6s; }
+.cycle-content.active .subject-item:nth-child(7) { transition-delay: 0.7s; }
 
 </style>
 </head>
@@ -338,27 +412,38 @@
 <div id="first-year" class="branch-content active">
     <div class="branch-card">
         <h2>Common First Year Subjects</h2>
-        <div class="cycle-container">
-            <!-- Chemistry Cycle -->
-            <div class="cycle-column">
-                <div class="cycle-header" onclick="toggleCycle('chemistry')">
-                    <span> Chemistry Cycle</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div id="chemistry" class="cycle-content">
-                    <!-- Subjects as before -->
-                </div>
-            </div>
-            <!-- Physics Cycle -->
-            <div class="cycle-column">
-                <div class="cycle-header" onclick="toggleCycle('physics')">
-                    <span> Physics Cycle</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div id="physics" class="cycle-content">
-                    <!-- Subjects as before -->
-                </div>
-            </div>
+        
+        <!-- Cycle Selection Dropdown -->
+        <select class="cycle-selector" onchange="showCycle(this.value)">
+            <option value="">Select Cycle</option>
+            <option value="physics">Physics Cycle</option>
+            <option value="chemistry">Chemistry Cycle</option>
+        </select>
+
+        <!-- Physics Cycle Content -->
+        <div id="physics" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Engineering Physics</li>
+                <li class="subject-item">Computational Mathematics</li>
+                <li class="subject-item">Environmental Studies</li>
+                <li class="subject-item">Engineering Materials & Mechanics</li>
+                <li class="subject-item">Engineering Graphics</li>
+                <li class="subject-item">Technical Writing Clinic 1</li>
+                <li class="subject-item">Universal Human Values</li>
+            </ul>
+        </div>
+
+        <!-- Chemistry Cycle Content -->
+        <div id="chemistry" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Calculus & Matrices</li>
+                <li class="subject-item">Engineering Chemistry</li>
+                <li class="subject-item">Basic Electrical Engineering</li>
+                <li class="subject-item">Basic Electronics</li>
+                <li class="subject-item">Biology for Engineers</li>
+                <li class="subject-item">Computer Programming</li>
+                <li class="subject-item">Constitution of India</li>
+            </ul>
         </div>
     </div>
 </div>
@@ -367,37 +452,301 @@
 <div id="cse-core" class="branch-content">
     <div class="branch-card">
         <h2>Computer Science & Engineering (Core)</h2>
-        <div class="year-header">Second Year</div>
-        <div class="cycle-container">
-            <div class="cycle-column">
-                <div class="cycle-header" onclick="toggleCycle('cse-sem3')">
-                    <span>Semester 3</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div id="cse-sem3" class="cycle-content">
-                    <a href="#" class="subject-link">Data Structures & Algorithms</a>
-                    <a href="#" class="subject-link">Computer Organization</a>
-                    <a href="#" class="subject-link">Discrete Mathematics</a>
-                </div>
-            </div>
-            <div class="cycle-column">
-                <div class="cycle-header" onclick="toggleCycle('cse-sem4')">
-                    <span>Semester 4</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div id="cse-sem4" class="cycle-content">
-                    <a href="" class="subject-link">Operating Systems</a>
-                    <a href="" class="subject-link">Database Management</a>
-                    <a href="" class="subject-link">Theory of Computation</a>
-                </div>
-            </div>
+        
+        <!-- Semester Selection Dropdown -->
+        <select class="cycle-selector" onchange="showSemester(this.value)">
+            <option value="">Select Semester</option>
+            <option value="sem3">Semester 3</option>
+            <option value="sem4">Semester 4</option>
+            <option value="sem5">Semester 5</option>
+            <option value="sem6">Semester 6</option>
+        </select>
+
+        <!-- Semester 3 Content -->
+        <div id="sem3" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Data Structures & Algorithms</li>
+                <li class="subject-item">Computer Organization</li>
+                <li class="subject-item">Discrete Mathematics</li>
+                <li class="subject-item">Digital Logic Design</li>
+                <li class="subject-item">Python Programming</li>
+            </ul>
         </div>
-        <!-- Add similar blocks for 3rd year -->
+
+        <!-- Semester 4 Content -->
+        <div id="sem4" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Operating Systems</li>
+                <li class="subject-item">Database Management Systems</li>
+                <li class="subject-item">Theory of Computation</li>
+                <li class="subject-item">Software Engineering</li>
+                <li class="subject-item">Java Programming</li>
+            </ul>
+        </div>
+
+        <!-- Semester 5 Content -->
+        <div id="sem5" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Computer Networks</li>
+                <li class="subject-item">Artificial Intelligence</li>
+                <li class="subject-item">Web Technologies</li>
+                <li class="subject-item">Machine Learning</li>
+                <li class="subject-item">Cloud Computing</li>
+            </ul>
+        </div>
+
+        <!-- Semester 6 Content -->
+        <div id="sem6" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Cybersecurity</li>
+                <li class="subject-item">Big Data Analytics</li>
+                <li class="subject-item">Internet of Things (IoT)</li>
+                <li class="subject-item">Blockchain Technology</li>
+                <li class="subject-item">Project Work</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- CSE Core Content -->
+<!-- AI & ML Content -->
+<div id="ai-ml" class="branch-content">
+    <div class="branch-card">
+        <h2>Artificial Intelligence & Machine Learning</h2>
+        
+        <!-- Semester Selection Dropdown -->
+        <select class="cycle-selector" onchange="showSemester(this.value)">
+            <option value="">Select Semester</option>
+            <option value="ai-ml-sem3">Semester 3</option>
+            <option value="ai-ml-sem4">Semester 4</option>
+            <option value="ai-ml-sem5">Semester 5</option>
+            <option value="ai-ml-sem6">Semester 6</option>
+        </select>
+
+        <!-- Semester 3 Content -->
+        <div id="ai-ml-sem3" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Mathematics for AI</li>
+                <li class="subject-item">Python Programming</li>
+                <li class="subject-item">Data Structures & Algorithms</li>
+                <li class="subject-item">Introduction to AI</li>
+                <li class="subject-item">Discrete Mathematics</li>
+            </ul>
+        </div>
+
+        <!-- Semester 4 Content -->
+        <div id="ai-ml-sem4" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Machine Learning</li>
+                <li class="subject-item">Database Management Systems</li>
+                <li class="subject-item">Probability & Statistics</li>
+                <li class="subject-item">Deep Learning Basics</li>
+                <li class="subject-item">Natural Language Processing</li>
+            </ul>
+        </div>
+
+        <!-- Semester 5 Content -->
+        <div id="ai-ml-sem5" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Computer Vision</li>
+                <li class="subject-item">Reinforcement Learning</li>
+                <li class="subject-item">Big Data Analytics</li>
+                <li class="subject-item">AI Ethics</li>
+                <li class="subject-item">Cloud Computing for AI</li>
+            </ul>
+        </div>
+
+        <!-- Semester 6 Content -->
+        <div id="ai-ml-sem6" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">AI Project Work</li>
+                <li class="subject-item">Advanced Machine Learning</li>
+                <li class="subject-item">Robotics</li>
+                <li class="subject-item">AI in Healthcare</li>
+                <li class="subject-item">Capstone Project</li>
+            </ul>
+        </div>
     </div>
 </div>
 
-<!-- Add similar content blocks for other branches -->
+<!-- CCE Content -->
+<div id="cce" class="branch-content">
+    <div class="branch-card">
+        <h2>Computer & Communication Engineering</h2>
+        
+        <!-- Semester Selection Dropdown -->
+        <select class="cycle-selector" onchange="showSemester(this.value)">
+            <option value="">Select Semester</option>
+            <option value="cce-sem3">Semester 3</option>
+            <option value="cce-sem4">Semester 4</option>
+            <option value="cce-sem5">Semester 5</option>
+            <option value="cce-sem6">Semester 6</option>
+        </select>
 
+        <!-- Semester 3 Content -->
+        <div id="cce-sem3" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Digital Communication</li>
+                <li class="subject-item">Data Structures</li>
+                <li class="subject-item">Signals & Systems</li>
+                <li class="subject-item">Microprocessors</li>
+                <li class="subject-item">Network Theory</li>
+            </ul>
+        </div>
+
+        <!-- Semester 4 Content -->
+        <div id="cce-sem4" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Wireless Communication</li>
+                <li class="subject-item">Operating Systems</li>
+                <li class="subject-item">Embedded Systems</li>
+                <li class="subject-item">Computer Networks</li>
+                <li class="subject-item">Communication Protocols</li>
+            </ul>
+        </div>
+
+        <!-- Semester 5 Content -->
+        <div id="cce-sem5" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">IoT & Sensor Networks</li>
+                <li class="subject-item">Cloud Computing</li>
+                <li class="subject-item">Cybersecurity</li>
+                <li class="subject-item">Advanced Networking</li>
+                <li class="subject-item">Project Work</li>
+            </ul>
+        </div>
+
+        <!-- Semester 6 Content -->
+        <div id="cce-sem6" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">5G Technology</li>
+                <li class="subject-item">Satellite Communication</li>
+                <li class="subject-item">AI in Communication</li>
+                <li class="subject-item">Capstone Project</li>
+                <li class="subject-item">Internship</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- IT Content -->
+<div id="it" class="branch-content">
+    <div class="branch-card">
+        <h2>Information Technology</h2>
+        
+        <!-- Semester Selection Dropdown -->
+        <select class="cycle-selector" onchange="showSemester(this.value)">
+            <option value="">Select Semester</option>
+            <option value="it-sem3">Semester 3</option>
+            <option value="it-sem4">Semester 4</option>
+            <option value="it-sem5">Semester 5</option>
+            <option value="it-sem6">Semester 6</option>
+        </select>
+
+        <!-- Semester 3 Content -->
+        <div id="it-sem3" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Web Technologies</li>
+                <li class="subject-item">Database Management</li>
+                <li class="subject-item">Operating Systems</li>
+                <li class="subject-item">Java Programming</li>
+                <li class="subject-item">Data Structures</li>
+            </ul>
+        </div>
+
+        <!-- Semester 4 Content -->
+        <div id="it-sem4" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Software Engineering</li>
+                <li class="subject-item">Computer Networks</li>
+                <li class="subject-item">Cloud Computing</li>
+                <li class="subject-item">Python Programming</li>
+                <li class="subject-item">UI/UX Design</li>
+            </ul>
+        </div>
+
+        <!-- Semester 5 Content -->
+        <div id="it-sem5" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Cybersecurity</li>
+                <li class="subject-item">Big Data Analytics</li>
+                <li class="subject-item">IoT</li>
+                <li class="subject-item">Machine Learning</li>
+                <li class="subject-item">Project Work</li>
+            </ul>
+        </div>
+
+        <!-- Semester 6 Content -->
+        <div id="it-sem6" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Blockchain Technology</li>
+                <li class="subject-item">Advanced Web Development</li>
+                <li class="subject-item">Capstone Project</li>
+                <li class="subject-item">Internship</li>
+                <li class="subject-item">IT Ethics</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Data Science Content -->
+<div id="data-science" class="branch-content">
+    <div class="branch-card">
+        <h2>Data Science</h2>
+        
+        <!-- Semester Selection Dropdown -->
+        <select class="cycle-selector" onchange="showSemester(this.value)">
+            <option value="">Select Semester</option>
+            <option value="ds-sem3">Semester 3</option>
+            <option value="ds-sem4">Semester 4</option>
+            <option value="ds-sem5">Semester 5</option>
+            <option value="ds-sem6">Semester 6</option>
+        </select>
+
+        <!-- Semester 3 Content -->
+        <div id="ds-sem3" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Mathematics for Data Science</li>
+                <li class="subject-item">Python Programming</li>
+                <li class="subject-item">Data Structures</li>
+                <li class="subject-item">Statistics & Probability</li>
+                <li class="subject-item">Introduction to Data Science</li>
+            </ul>
+        </div>
+
+        <!-- Semester 4 Content -->
+        <div id="ds-sem4" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Machine Learning</li>
+                <li class="subject-item">Data Visualization</li>
+                <li class="subject-item">Database Management</li>
+                <li class="subject-item">Big Data Basics</li>
+                <li class="subject-item">R Programming</li>
+            </ul>
+        </div>
+
+        <!-- Semester 5 Content -->
+        <div id="ds-sem5" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Deep Learning</li>
+                <li class="subject-item">Natural Language Processing</li>
+                <li class="subject-item">Cloud Computing for Data Science</li>
+                <li class="subject-item">AI in Data Science</li>
+                <li class="subject-item">Project Work</li>
+            </ul>
+        </div>
+
+        <!-- Semester 6 Content -->
+        <div id="ds-sem6" class="cycle-content">
+            <ul class="subject-list">
+                <li class="subject-item">Advanced Data Analytics</li>
+                <li class="subject-item">Data Science Ethics</li>
+                <li class="subject-item">Capstone Project</li>
+                <li class="subject-item">Internship</li>
+                <li class="subject-item">Industry Applications</li>
+            </ul>
+        </div>
+    </div>
+</div>
 </div>
 
 <script>
@@ -422,6 +771,45 @@ function toggleCycle(cycleId) {
     const header = cycle.previousElementSibling;
     cycle.classList.toggle('active');
     header.classList.toggle('active');
+}
+function showCycle(selectedCycle) {
+    // Hide all cycle contents
+    const allCycles = document.querySelectorAll('.cycle-content');
+    allCycles.forEach(cycle => {
+        cycle.classList.remove('active');
+    });
+
+    // Show selected cycle with animation
+    if (selectedCycle) {
+        const activeCycle = document.getElementById(selectedCycle);
+        activeCycle.classList.add('active');
+    }
+}
+function showCycle(selectedCycle) {
+    // Hide all cycle contents
+    const allCycles = document.querySelectorAll('.cycle-content');
+    allCycles.forEach(cycle => {
+        cycle.classList.remove('active');
+    });
+
+    // Show selected cycle with animation
+    if (selectedCycle) {
+        const activeCycle = document.getElementById(selectedCycle);
+        activeCycle.classList.add('active');
+    }
+}
+function showSemester(selectedSemester) {
+    // Hide all semester contents
+    const allSemesters = document.querySelectorAll('.cycle-content');
+    allSemesters.forEach(semester => {
+        semester.classList.remove('active');
+    });
+
+    // Show selected semester with animation
+    if (selectedSemester) {
+        const activeSemester = document.getElementById(selectedSemester);
+        activeSemester.classList.add('active');
+    }
 }
 </script>
 </body>
